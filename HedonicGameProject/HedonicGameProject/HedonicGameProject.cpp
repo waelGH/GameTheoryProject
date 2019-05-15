@@ -41,6 +41,7 @@ int main(int argc, char *argv[])
 	if (n > 11) { n = 4; } //just in case make mistake
 
 	// Set up time
+	//update
 	time_t t = time(0); //is a pointer really
 	tm* myStartTime = new tm();
 	//localtime(&t);    
