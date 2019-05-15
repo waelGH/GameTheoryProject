@@ -22,6 +22,7 @@ typedef unsigned int MYINT;
 
 int main(int argc, char *argv[])
 {
+	cout << "local update";
 	cout << "GitHub Update ";
 	cout << "Command Arguments: " << argc << std::endl;
 	for (int i = 0; i < argc; i++) {
