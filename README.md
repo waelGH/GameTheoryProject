@@ -1,2 +1,2 @@
 # GameTheoyProject
-In this project, we develop an algorithm that identifies the core of a hedonic game theory
+In this project, we develop an algorithm that finds the core of an hedonic game 
