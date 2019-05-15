@@ -42,12 +42,15 @@ int main(int argc, char *argv[])
 
 	if (n > 11) { n = 4; } //just in case make mistake
 
-	// Set up time
-	//update
+	// Set up time: on windows
 	time_t t = time(0); //is a pointer really
 	tm* myStartTime = new tm();
-	//localtime(&t);    
 	localtime_s(myStartTime, &t);
+	
+	
+	//Set up time: on Unix server
+	//tm* myStartTime = localtime(&t);
+
 
 	// set up file name
 	// location is C:\Users\ajcollin\source\repos\AndyMain\AndyMain
