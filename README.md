@@ -1,2 +1,2 @@
-# GameTheoyProject
+# GameTheoryProject
 
