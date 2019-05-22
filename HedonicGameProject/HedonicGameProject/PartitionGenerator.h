@@ -13,6 +13,7 @@
 #include <cmath>  //standard math functions (could have said math.h instead)
 
 #include "PartitionClass.h"
+#include <vector> 
 
 typedef unsigned int MYINT;
 using namespace std;
@@ -24,9 +25,9 @@ class PartitionGenerator
 {
 public:
 	PartitionGenerator(MYINT, MyRandomGame*, MYINT, MYINT, std::ofstream&);
-	~PartitionGenerator() {};
-
+	~PartitionGenerator() ;
 private:
+
 
 };
 
@@ -62,7 +63,7 @@ PartitionGenerator::PartitionGenerator(MYINT myAgentNum, MyRandomGame* g, MYINT 
 
 		for (i = 1; i <= (n - j); i++) {
 			c[n - 1] = i;
-
+			
 			for (short k = 0; k < n; k++) {
 				//myfile << c[k] << '\t';
 				//std::cout << c[k] << '\t';
@@ -76,6 +77,11 @@ PartitionGenerator::PartitionGenerator(MYINT myAgentNum, MyRandomGame* g, MYINT 
 				p->myPartition[k] = (MYINT)c[k];
 			}
 
+			//for (short k = 0; k < n; k++) {
+			//	cout << p->myPartition[k] << "	";
+			//}
+			//cout << endl;
+
 			if (p->PartitionValueCheck(g, RunNumber, SubRunNumber, coreCount, myfile)) {
 				coreCount++;
 			}
@@ -86,6 +92,7 @@ PartitionGenerator::PartitionGenerator(MYINT myAgentNum, MyRandomGame* g, MYINT 
 		if (c[r - 1] > (r - j)) { j--; }
 		//checker to stop
 	} while (r != 1);
+
 
 	//prints outline if core not found
 	if (!coreCount) {
@@ -108,4 +115,10 @@ PartitionGenerator::PartitionGenerator(MYINT myAgentNum, MyRandomGame* g, MYINT 
 }
 #endif  //End of Inclusion Guard
 
+//*****************************************************************************
+// Destructor
+//*****************************************************************************
+PartitionGenerator::~PartitionGenerator(){
+
+}
 

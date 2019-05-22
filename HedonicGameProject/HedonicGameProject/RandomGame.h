@@ -13,6 +13,7 @@
 #include <chrono> //Standard clockfunctions
 #include <cmath>  //standard math functions (could have said math.h instead)
 #include<algorithm>
+#include<vector>
 
 typedef unsigned int MYINT;
 
@@ -29,6 +30,7 @@ public:
 	MYINT GetReward(MYINT n, MYINT s) { return myRewardArray[n][s]; };
 
 	void PrintOutArray(MYINT);
+	void PrintOutArray2(MYINT, std::ofstream& myfile);
 
 	//	MYINT ConvertSubsetToInteger(MYINT, bool*);
 	//	bool* ConvertIntegerToSubset(MYINT, MYINT);
@@ -68,6 +70,9 @@ MyRandomGame::MyRandomGame(MYINT n)
 	// First creates the main array
 	//--------------------------------------------
 	// n column is binary for the checked
+
+
+	//****// Wael: is the intNumSubsets represents the number of coalitions in the coalition structure 
 	myRewardArray = new MYINT*[n + 1];
 	const MYINT intNumSubsets = (MYINT)std::pow(2.0, (double)n);
 	for (i = 0; i < n + 1; i++) {
@@ -112,11 +117,15 @@ MyRandomGame::MyRandomGame(MYINT n)
 		delete[] myArray;
 	}
 
+
+	//print my reward array //****// Wael: why the number of lines (players) is n+1? IR?
+	//PrintOutArray(n);
+
+	
 	SingletonRewardSubstitution(n); //puts singleton values in first row
 	SingletonRewardSubsetCheck(n);
 
-	//DEBUGGING
-	//PrintOutArray(n);
+
 
 	// delete myArray; 
 	//std::cout << "DEBUG: GOT HERE" << std::endl;
@@ -184,6 +193,117 @@ void MyRandomGame::PrintOutArray(MYINT n) {
 		std::cout << std::endl;
 	}
 }
+
+
+void MyRandomGame::PrintOutArray2(MYINT n, std::ofstream& myfile) {
+	// index variables
+	MYINT aa;
+	MYINT jj;
+
+	MYINT intNumSubsets = (MYINT)std::pow(2.0, (double)n);
+	vector<vector<MYINT>> v(intNumSubsets);
+
+	for (MYINT c = 0; c < intNumSubsets; c++) {
+		v[c].resize(n);
+	}
+
+
+// Setup varibles
+	short r = 1;
+	short j = 0;
+	short i;
+	
+	short* c = new short[n + 1];
+	short* b = new short[n + 1];
+	
+
+	for (i = 0; i < n; i++) { c[i] = 0; b[i] = 0; }
+	c[n] = 1; 
+
+	c[0] = 1;
+	b[0] = 1;
+	MYINT index = 0;
+
+	//present the codeword
+	do {
+		while (r < (n - 1)) {
+			r++;
+			c[r - 1] = 1;
+			j++;
+			b[j] = r;
+		}
+
+		for (i = 1; i <= (n - j); i++) {
+			c[n - 1] = i;
+
+			for (short k = 0; k < n; k++) {
+				//myfile << c[k] << '\t';
+				//std::cout << c[k] << '\t';
+				//cout << "n=" << n << endl;
+				//cout << "k=" << k << endl;
+				//cout << "c[k]="<< c[k]<<endl;
+				//MYINT tt = (MYINT)&c[k];
+				//cout << "tt=" << c[k] << endl;
+				//cout << endl << endl;
+
+
+				v[index][k]=((MYINT)c[k]);
+				
+				//myPartition[k] = (MYINT)c[k];
+			}
+			
+			index++;
+		}
+		r = b[j];
+		c[r - 1]++;
+		if (c[r - 1] > (r - j)) { j--; }
+		//checker to stop
+	} while (r != 1);
+
+
+	/**/
+	myfile <<endl <<"---------------- Debug a new Game ----------------------" << endl;
+
+	std::cout << " \t";
+	myfile << "\t" ;
+	for (aa = 0; aa < n; aa++) {
+		std::cout << aa << "\t";
+		myfile << aa << "\t";
+	}
+	std::cout << "IR" << "\t";
+	myfile << "IR" << "\t";
+	std::cout << std::endl;
+	myfile << std::endl;
+
+	for (jj = 0; jj < intNumSubsets; jj++) {
+		std::cout << jj << "\t";
+		myfile << jj << "\t";
+
+		for (aa = 0; aa <= n; aa++) {
+			std::cout << myRewardArray[aa][jj] << "\t";
+			myfile << myRewardArray[aa][jj] << "\t";	
+		}
+
+		myfile << "(";
+		std::cout << "(";
+		for (MYINT ccc = 0; ccc < n; ccc++) {
+			std::cout << v[jj][ccc] ;
+			myfile << v[jj][ccc]  ;
+		}
+		myfile << ") ";
+		std::cout << ") ";
+
+
+		std::cout << std::endl;
+		myfile << std::endl;
+	}
+	myfile << std::endl << std::endl;
+}
+
+
+
+
+
 
 /* IN SUBSET CLASS NOW
 //*****************************************************************************

@@ -29,15 +29,11 @@ int main(int argc, char *argv[])
 		cout << "Arguments " << i << ": " << argv[i] << std::endl;
 	}
 
-	// 0 file location
-	MYINT n = std::stoi(argv[1]);
+	
+	MYINT n = std::stoi(argv[1]);   //4
 
-	//MYINT n = 4;
-	//MYINT RunNumber = 1;
-	//MYINT NumRepeats = 10; //Number of seconds till stop
-
-	MYINT RunNumber = std::stoi(argv[2]);
-	MYINT NumRepeats = std::stoi(argv[3]); //Number of seconds till stop
+	MYINT RunNumber = std::stoi(argv[2]);   //1
+	MYINT NumRepeats = std::stoi(argv[3]); //Number of seconds till stop  10
 	MYINT SubRunNumber = 10;
 
 	if (n > 11) { n = 4; } //just in case make mistake
@@ -47,8 +43,9 @@ int main(int argc, char *argv[])
 	tm* myStartTime = new tm();
 	localtime_s(myStartTime, &t);
 	
-	
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//Set up time: on Unix server
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//tm* myStartTime = localtime(&t);
 
 
@@ -70,11 +67,12 @@ int main(int argc, char *argv[])
 	MyRandomGame* g;
 	PartitionGenerator* p; //This actually finds those in the core
 
-						   // Complete one iteration before main run
+    // Complete one iteration before main run
 	g = new MyRandomGame(n);
-	//Debugging
-	//g->PrintOutArray(n);
+	//printOut the Game
+	g->PrintOutArray2(n,myfile);
 
+	
 	p = new PartitionGenerator(n, g, RunNumber, SubRunNumber, myfile); //This actually finds those partitions in the core
 	SubRunNumber++;
 
@@ -82,23 +80,26 @@ int main(int argc, char *argv[])
 	delete p; //Trying to clean up
 
 
-	//*/
+	//comment for now
+
+
 	int count = 0;
 	while (difftime(time(0), t) < NumRepeats) {
 		count++;
 		std::cout << count << endl;
 
 		g = new MyRandomGame(n);
+		g->PrintOutArray2(n, myfile);
 		p = new PartitionGenerator(n, g, RunNumber, SubRunNumber, myfile); //This actually finds those in the core	
 		SubRunNumber++;
 
 		delete g; //Trying to clean up
 		delete p; //Trying to clean up
 	}
-	///*/
+	
 
 
-	std::cout << "time past: " << difftime(std::time(0), t) << std::endl; //gives seconds since 1970
+	//std::cout << "time past: " << difftime(std::time(0), t) << std::endl; //gives seconds since 1970
 
 	myfile.close();
 	delete myStartTime;

@@ -9,6 +9,8 @@
 #include <fstream> // includes istream and ostream
 #include <iostream> //include iostream
 
+
+
 typedef unsigned int MYINT;
 using namespace std;
 
@@ -167,7 +169,6 @@ bool PartitionClass::FindPartitionValue(MyRandomGame* r) {
 		/////////////////////////
 
 		//MYINT* myReward = new MYINT[mySize];
-
 		for (i = 0; i < mySize; i++) { myReward[i] = 0; }
 
 		for (j = 0; j <= myMax; j++) {
