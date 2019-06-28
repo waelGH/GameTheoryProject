@@ -9,7 +9,11 @@
 #include "targetver.h"
 
 //#include <stdio.h>
-#include <tchar.h>
+
+//*********************** <tchar.h> is not recognized using gcc compiler *******************//
+//#include <tchar.h>
+
+
 #include <iostream>
 //#include <string>
 //#include<fstream>

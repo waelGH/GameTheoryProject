@@ -23,9 +23,6 @@ typedef unsigned int MYINT;
 int main(int argc, char *argv[])
 {
 
-	cout << "UPDTATE DR COLLINS";
-	cout << "local update";
-	cout << "GitHub Update ";
 	cout << "Command Arguments: " << argc << std::endl;
 	for (int i = 0; i < argc; i++) {
 		cout << "Arguments " << i << ": " << argv[i] << std::endl;
@@ -40,15 +37,15 @@ int main(int argc, char *argv[])
 
 	if (n > 11) { n = 4; } //just in case make mistake
 
-	// Set up time: on windows
+	// ************** On windows use this way to set up time ******************//
 	time_t t = time(0); //is a pointer really
 	tm* myStartTime = new tm();
 	localtime_s(myStartTime, &t);
-	
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//Set up time: on Unix server
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//tm* myStartTime = localtime(&t);
+
+
+	// ************** On Unix server use this way to set up time ******************//
+	// time_t t = time(0);
+	// tm* myStartTime = localtime(&t);
 
 
 	// set up file name
